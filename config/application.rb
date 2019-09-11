@@ -17,10 +17,10 @@ module EtShareApp
     # the framework and any gems in your application.
 
     AWS::S3::Base.establish_connection!(
-      :access_key_id => LOCAL_SETTINGS["s3"]["id"]
-      :secret_access_key => LOCAL_SETTINGS["s3"]["key"]
+      :access_key_id => Settings["s3"]["id"],
+      :secret_access_key => Settings["s3"]["key"]
     )
 
-    BUCKET = LOCAL_SETTINGS["s3"]["bucket"]
+    BUCKET = Settings["s3"]["bucket"]
   end
 end
