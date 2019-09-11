@@ -15,12 +15,5 @@ module EtShareApp
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-
-    AWS::S3::Base.establish_connection!(
-      :access_key_id => Settings["s3"]["id"],
-      :secret_access_key => Settings["s3"]["key"]
-    )
-
-    BUCKET = Settings["s3"]["bucket"]
   end
 end
