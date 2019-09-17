@@ -1,5 +1,4 @@
 class SongsController < ApplicationController
-  BUCKET = Settings["s3"]["bucket"]
   
   def index
     client = Aws::S3::Client.new(
@@ -8,7 +7,7 @@ class SongsController < ApplicationController
       access_key_id: Settings["s3"]["id"],
       secret_access_key: Settings["s3"]["key"]
     )
-    bucket = client.list_objects({bucket: SongsController::BUCKET})
+    @recordings = client.list_objects_v2({bucket: Settings["s3"]["bucket"], max_keys: 20})
   end
 
   def upload
