@@ -7,7 +7,9 @@ class SongsController < ApplicationController
       access_key_id: Settings["s3"]["id"],
       secret_access_key: Settings["s3"]["key"]
     )
-    @recordings = client.list_objects_v2({bucket: Settings["s3"]["bucket"], max_keys: 20})
+    objects = client.list_objects_v2({bucket: Settings["s3"]["bucket"], max_keys: 20})[:contents]
+    @folders = objects.map { |object| object.key if object.key.match?("/$") }.compact
+    @recordings = objects.map { |object| {folder: object.key.split("/")[0] + "/", name: object.key.split("/")[1]} unless @folders.include?(object.key) }.compact
   end
 
   def upload
